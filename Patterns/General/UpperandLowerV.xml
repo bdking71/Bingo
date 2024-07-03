@@ -1,0 +1,21 @@
+<Patterns>
+	<Name>Upper and Lower V</Name>
+	<Pattern>
+		<Boxes>
+			<Box id="1" />
+			<Box id="7" />
+			<Box id="13" />
+			<Box id="9" />
+			<Box id="5" />
+		</Boxes>
+	</Pattern>
+	<Pattern>
+		<Boxes>
+			<Box id="21" />
+			<Box id="17" />
+			<Box id="13" />
+			<Box id="19" />
+			<Box id="25" />
+		</Boxes>
+	</Pattern>
+</Patterns>

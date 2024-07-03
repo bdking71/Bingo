@@ -1,0 +1,20 @@
+<Patterns>
+	<Name>Bell</Name>
+	<Pattern>
+		<Boxes>
+			<Box id="3" />
+			<Box id="7" />
+			<Box id="12" />
+			<Box id="8" />
+			<Box id="13" />
+			<Box id="9" />
+			<Box id="14" />
+			<Box id="16" />
+			<Box id="17" />
+			<Box id="23" />
+			<Box id="18" />
+			<Box id="19" />
+			<Box id="20" />
+		</Boxes>
+	</Pattern>
+</Patterns>

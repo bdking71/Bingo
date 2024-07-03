@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="BingoBoard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="LastThreeBallsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="NextBallToBeCalledControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PatternSelectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SevenSegmentDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="WinningPatternBoard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

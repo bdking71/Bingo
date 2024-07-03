@@ -1,0 +1,16 @@
+<Patterns>
+	<Name>Letter A</Name>
+	<Pattern>
+		<Boxes>
+			<Box id="21" />
+			<Box id="9" />
+			<Box id="13" />
+			<Box id="17" />
+			<Box id="5" />
+			<Box id="15" />
+			<Box id="3" />
+			<Box id="4" />
+			<Box id="10" />
+		</Boxes>
+	</Pattern>
+</Patterns>

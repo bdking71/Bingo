@@ -1,0 +1,11 @@
+<Patterns>
+	<Name>Postage Stamp</Name>
+	<Pattern>
+		<Boxes>
+			<Box id="4" />
+			<Box id="5" />
+			<Box id="10" />
+			<Box id="9" />
+		</Boxes>
+	</Pattern>
+</Patterns>
