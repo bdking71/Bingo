@@ -1,0 +1,16 @@
+<Patterns>
+	<Name>Crazy pyramid</Name>
+	<Pattern>
+		<Boxes>
+			<Box id="13" />
+			<Box id="18" />
+			<Box id="23" />
+			<Box id="22" />
+			<Box id="21" />
+			<Box id="24" />
+			<Box id="25" />
+			<Box id="17" />
+			<Box id="19" />
+		</Boxes>
+	</Pattern>
+</Patterns>

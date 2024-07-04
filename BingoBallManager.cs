@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-/// <summary>
-/// Manages the bingo balls and provides functionality to pick random balls, shuffle balls, reset balls, and retrieve information about drawn and remaining balls.
-/// </summary>
 public class BingoBallManager
 {
     private List<int>? balls; // Nullable list to store the remaining bingo balls
     private List<int>? drawnBalls; // Nullable list to store the drawn bingo balls
     private Random random; // Random number generator for shuffling
     private List<string> disabledRows = new List<string>();
-
+    private List<int> ballsToRemove = new List<int>();
     public List<string> DisabledRows
     {
         get { 
@@ -24,10 +21,12 @@ public class BingoBallManager
         }
     }
 
+    public List<int> BallsToRemove
+    {
+        get { return ballsToRemove; }
+        set { ballsToRemove = value; }
+    }
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BingoBallManager"/> class.
-    /// </summary>
     public BingoBallManager()
     {
         balls = null; // Initialize balls as null
@@ -36,9 +35,6 @@ public class BingoBallManager
         random = new Random(Guid.NewGuid().GetHashCode()); // Initialize the random number generator with a unique seed
     }
 
-    /// <summary>
-    /// Initializes the bingo balls from 1 to 75.
-    /// </summary>
     private void InitializeBalls()
     {
         balls = new List<int>(); // Create a new list for balls
@@ -86,14 +82,20 @@ public class BingoBallManager
               
             }
         }
+
+
         Console.WriteLine(balls);
         drawnBalls = new List<int>(); // Create a new list for drawn balls
-    }
 
 
-    /// <summary>
-    /// Shuffles the bingo balls using the Fisher-Yates shuffle algorithm.
-    /// </summary>
+        foreach (int ballToRemove in ballsToRemove)
+        {
+            balls.Remove(ballToRemove);
+            drawnBalls.Add(ballToRemove);
+        }
+
+            }
+
     private void ShuffleBalls()
     {
         for (int shuffle = 0; shuffle < random.Next(1, 51); shuffle++) // Perform a random number of shuffles between 1 and 50
@@ -108,10 +110,6 @@ public class BingoBallManager
         }
     }
 
-    /// <summary>
-    /// Picks a random ball from the remaining balls.
-    /// </summary>
-    /// <returns>The randomly picked ball number.</returns>
     public int PickRandomBall()
     {
         if (balls == null || balls.Count == 0) throw new InvalidOperationException("All bingo balls have been drawn."); // Check if there are any remaining balls 
@@ -122,38 +120,22 @@ public class BingoBallManager
         return pickedBall; // Return the picked ball number
     }
 
-    /// <summary>
-    /// Resets the bingo balls back to the default state.
-    /// </summary>
     public void ResetBalls()
     {
         InitializeBalls(); // Reinitialize the balls
         ShuffleBalls();
     }
 
-    /// <summary>
-    /// Gets the list of drawn balls.
-    /// </summary>
-    /// <returns>The list of drawn ball numbers.</returns>
     public List<int> GetDrawnBalls()
     {
         return drawnBalls ?? new List<int>(); // Return an empty list if drawnBalls is null
     }
 
-    /// <summary>
-    /// Gets the list of remaining balls.
-    /// </summary>
-    /// <returns>The list of remaining ball numbers.</returns>
     public List<int> GetRemainingBalls()
     {
         return balls ?? new List<int>(); // Return an empty list if balls is null
     }
 
-    /// <summary>
-    /// Gets the letter associated with the bingo ball number.
-    /// </summary>
-    /// <param name="ballNumber">The bingo ball number.</param>
-    /// <returns>The letter associated with the bingo ball number.</returns>
     public char GetBallLetter(int ballNumber)
     {
         if (ballNumber >= 1 && ballNumber <= 15) return 'B'; // Return 'B' for ball numbers 1-15
@@ -164,10 +146,6 @@ public class BingoBallManager
         throw new ArgumentOutOfRangeException("ballNumber", "Ball number must be between 1 and 75."); // Throw an exception for invalid ball numbers
     }
 
-    /// <summary>
-    /// Gets the number of balls that have been drawn.
-    /// </summary>
-    /// <returns>The number of drawn balls.</returns>
     public int GetDrawnBallsCount()
     {
         return drawnBalls?.Count + 1 ?? 0; // Return 0 if drawnBalls is null

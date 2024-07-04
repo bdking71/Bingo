@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
+
 namespace Bingo
 {
     public partial class BingoBoard : UserControl
@@ -13,6 +14,8 @@ namespace Bingo
         private float rowHeaderFontSize = 12f;
         private Boolean IsGameStarted = false;
         private List<string> disabledRows = new List<string>();
+        private List<int> ballsToRemove = new List<int>();
+
         private System.Windows.Forms.Timer blinkTimer = new System.Windows.Forms.Timer();
         private float numberFontSize = 12f;
         private int boxSize = 70;
@@ -104,11 +107,30 @@ namespace Bingo
                 RefreshBingoBoard();
             }
         }
-        
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the game has started.
+        /// </summary>
+        /// <value>A boolean value indicating the current state of the game.</value>
+        /// <remarks>
+        /// This property provides access to the state of the game, allowing you to check if the game has started
+        /// or to update the game state.
+        /// </remarks>
+        /// <example>
+        /// Example usage:
+        /// <code>
+        /// // Check if the game has started
+        /// bool gameStarted = gameInstance.isGameStarted;
+        ///
+        /// // Start the game
+        /// gameInstance.isGameStarted = true;
+        /// </code>
+        /// </example>
         public Boolean isGameStarted { 
           get { return IsGameStarted; } 
           set { IsGameStarted = value; }
         }
+        
         /// <summary>
         /// Gets or sets the list of disabled rows on the Bingo board.
         /// </summary>
@@ -139,7 +161,27 @@ namespace Bingo
                 // Refresh board or perform other actions if necessary
             }
         }
-        
+
+        /// <summary>
+        /// Gets the list of removed balls.
+        /// </summary>
+        /// <value>The list of integers representing the balls that have been removed.</value>
+        /// <remarks>
+        /// This property allows read access to the list of balls that have been removed during the game.
+        /// The list is privately set, meaning it can only be modified internally within the class.
+        /// </remarks>
+        /// <example>
+        /// Example usage:
+        /// <code>
+        /// // Access the list of removed balls
+        /// List<int> removedBalls = gameInstance.RemovedBalls;
+        /// </code>
+        /// </example>
+        public List<int> BallsToRemove
+        {
+            get { return ballsToRemove; }
+            private set { ballsToRemove = value; }
+        }
 
         /// <summary>
         /// Initializes a new instance of the BingoBoard class.
@@ -314,28 +356,94 @@ namespace Bingo
                         boxLabel.BackColor = Color.FromArgb(10, 10, 10);  
                         boxLabel.Font = new Font(boxLabel.Font.FontFamily, numberFontSize); // Set font size                      
                         boxLabel.Click += boxLabel_Click;
+                        boxLabel.Tag = rowHeaders[row];
                         this.Controls.Add(boxLabel);
                     }
                 }
             }
         }
 
-        //WORK IN PROGRESS HERE 
+        /// <summary>
+        /// Handles the Click event of a box label to toggle its foreground color and manage the list of removed balls.
+        /// </summary>
+        /// <param name="sender">The object that triggered the event.</param>
+        /// <param name="e">An EventArgs that contains the event data.</param>
+        /// <remarks>
+        /// This method toggles the foreground color of the clicked label between SuperDarkGray and White
+        /// if the game has not yet started. It also adds or removes the associated number from the list of removed balls.
+        /// </remarks>
+        /// <example>
+        /// Example usage:
+        /// <code>
+        /// // This method is automatically called when a box label is clicked, allowing toggling of its state.
+        /// </code>
+        /// </example>
         private void boxLabel_Click(object? sender, EventArgs e)
         {
-            return; 
-            /*if ((sender is Label clickedBox) && (IsGameStarted == false)) {
+            if ((sender is Label clickedBox) && (IsGameStarted == false)) {
+                
+                // Determine the number associated with clickedBox (assuming some logic here)
+                int number = GetNumberFromLabel(clickedBox);
+
                 if (clickedBox.ForeColor == SuperDarkGray)
                 {
                     clickedBox.ForeColor = Color.White;
+                    ballsToRemove.Add(number); // Add to list if not present
                 } 
                 else 
                 {
                     clickedBox.ForeColor = SuperDarkGray;
+                    ballsToRemove.Remove(number); // Remove from list if already present 
                 }
-            }*/
+            }
         }
-        
+
+        /// <summary>
+        /// Retrieves the number from the text of the given label.
+        /// </summary>
+        /// <param name="label">The label containing the number as its text.</param>
+        /// <returns>The integer value parsed from the label's text.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when the label's text is not a valid number.</exception>
+        /// <remarks>
+        /// This method attempts to parse the text of the label into an integer. If successful, it returns the parsed number.
+        /// If the label's text is not a valid integer, it throws an InvalidOperationException.
+        /// </remarks>
+        /// <example>
+        /// Example usage:
+        /// <code>
+        /// // Assuming 'myLabel' is a Label instance with its text set to a valid number
+        /// int number = GetNumberFromLabel(myLabel);
+        /// </code>
+        /// </example>
+        private int GetNumberFromLabel(Label label)
+        {
+            // Assuming your label text is the number you want to extract
+            if (int.TryParse(label.Text, out int number))
+            {
+                return number;
+            }
+            else
+            {
+                // Handle the case where the label text is not a valid number
+                throw new InvalidOperationException("Label text is not a valid number.");
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of a row header label to toggle its color and enable/disable corresponding rows.
+        /// </summary>
+        /// <param name="sender">The object that triggered the event.</param>
+        /// <param name="e">An EventArgs that contains the event data.</param>
+        /// <remarks>
+        /// This method toggles the background and foreground colors of the clicked label between LightGray and a darker shade
+        /// if the game has not yet started. It also enables or disables rows associated with the clicked label based on its state.
+        /// </remarks>
+        /// <example>
+        /// Example usage:
+        /// <code>
+        /// // This method is automatically called when a row header label is clicked, allowing toggling of row states.
+        /// </code>
+        /// </example>
         private void RowHeaderLabel_Click(object? sender, EventArgs e)
         {          
             if ((sender is Label clickedLabel) && (IsGameStarted == false))
@@ -347,7 +455,7 @@ namespace Bingo
                     clickedLabel.BackColor = Color.FromArgb(10, 10, 10);
 
                     // Handle row disable action
-                    string? rowLetter = clickedLabel.Tag.ToString();
+                    string? rowLetter = clickedLabel.Tag?.ToString();
                     if (!string.IsNullOrEmpty(rowLetter)) DisableRow(rowLetter);
                 }
                 else
@@ -356,11 +464,12 @@ namespace Bingo
                     clickedLabel.ForeColor = Color.Red;
 
                     // Handle row enable action
-                    string? rowLetter = clickedLabel.Tag.ToString();
+                    string? rowLetter = clickedLabel.Tag?.ToString();
                     if (!string.IsNullOrEmpty(rowLetter))  EnableRow(rowLetter);
                 }
             }
         }
+
         /// <summary>
         /// Disables a specific row identified by its letter in the Bingo board.
         /// </summary>
@@ -440,7 +549,7 @@ namespace Bingo
         /// // BingoBoard_SizeChanged(this, EventArgs.Empty);
         /// </code>
         /// </example>
-        private void BingoBoard_SizeChanged(object sender, EventArgs e)
+        private void BingoBoard_SizeChanged(object? sender, EventArgs e)
         {
             // Recreate the bingo board when the size changes
             CreateBingoBoard();
@@ -469,6 +578,25 @@ namespace Bingo
             CreateBingoBoard();
         }
 
+        /// <summary>
+        /// Updates the bingo board by resetting and highlighting called balls, and starts blinking for the last called ball.
+        /// </summary>
+        /// <param name="calledBalls">A list of integers representing the balls that have been called.</param>
+        /// <remarks>
+        /// This method performs the following actions:
+        /// 1. Resets the colors and backgrounds of all box labels on the bingo board.
+        /// 2. Updates the colors and backgrounds of labels corresponding to the called balls.
+        /// 3. Initiates a blinking effect for the label of the last called ball.
+        /// </remarks>
+        /// <example>
+        /// Example usage:
+        /// <code>
+        /// // List of called balls
+        /// List<int> calledBalls = new List<int> { 5, 10, 20, 35 };
+        /// // Update the bingo board with the called balls
+        /// UpdateBingoBoard(calledBalls);
+        /// </code>
+        /// </example>
         public void UpdateBingoBoard(List<int> calledBalls)
         {
             // Reset all box labels' colors and backgrounds
@@ -487,9 +615,13 @@ namespace Bingo
                 string labelName = "label" + calledBall;
                 if (Controls.ContainsKey(labelName))
                 {
-                    Label calledLabel = (Label)Controls[labelName];
-                    calledLabel.ForeColor = Color.White; // Set text color to black
-                    calledLabel.BackColor = Color.FromArgb(15,15,15); // Set background color to white
+                    //Label? calledLabel = (Label)Controls[labelName];
+                    Control? control = Controls[labelName];
+                    if (control is Label calledLabel) 
+                    { 
+                        calledLabel.ForeColor = Color.White; // Set text color to black
+                        calledLabel.BackColor = Color.FromArgb(15, 15, 15); // Set background color to white
+                    }
                 }
             }
 
@@ -502,7 +634,7 @@ namespace Bingo
             string lastCalledLabelName = "label" + calledBalls.Last();
             if (Controls.ContainsKey(lastCalledLabelName))
             {
-                lastCalledNumberLabel = (Label)Controls[lastCalledLabelName];
+                lastCalledNumberLabel = (Label?)Controls[lastCalledLabelName];
                 BlinkLastNumber();
             }
         }
@@ -534,7 +666,21 @@ namespace Bingo
             }
         }
 
-        private void BlinkTimer_Tick(object sender, EventArgs e)
+        /// <summary>
+        /// Handles the Tick event of the blink timer to toggle the visibility of the last called number label.
+        /// </summary>
+        /// <param name="sender">The object that triggered the event.</param>
+        /// <param name="e">An EventArgs that contains the event data.</param>
+        /// <remarks>
+        /// This method toggles the visibility of the label for the last called number, creating a blinking effect.
+        /// </remarks>
+        /// <example>
+        /// Example usage:
+        /// <code>
+        /// // This method is automatically called each time the blink timer ticks.
+        /// </code>
+        /// </example>
+        private void BlinkTimer_Tick(object? sender, EventArgs e)
         {
             if (lastCalledNumberLabel != null)
             {
@@ -586,7 +732,7 @@ namespace Bingo
         /// // BingoBoard_Disposed(this, EventArgs.Empty);
         /// </code>
         /// </example>
-        private void BingoBoard_Disposed(object sender, EventArgs e)
+        private void BingoBoard_Disposed(object? sender, EventArgs e)
         {
             // Dispose the Timer when the control is disposed to release resources
             blinkTimer.Dispose();
@@ -614,6 +760,7 @@ namespace Bingo
         {
             // Stop blinking the last called number, if any
             StopBlinkingLastNumber();
+            BallsToRemove.Clear();
 
             // Reset all box labels' colors and backgrounds
             foreach (Control control in Controls)

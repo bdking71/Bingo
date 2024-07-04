@@ -1,0 +1,18 @@
+<Patterns>
+	<Name>Airplane</Name>
+	<Pattern>
+		<Boxes>
+			<Box id="6" />
+			<Box id="11" />
+			<Box id="16" />
+			<Box id="12" />
+			<Box id="13" />
+			<Box id="9" />
+			<Box id="4" />
+			<Box id="14" />
+			<Box id="19" />
+			<Box id="24" />
+			<Box id="15" />
+		</Boxes>
+	</Pattern>
+</Patterns>

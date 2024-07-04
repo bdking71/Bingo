@@ -148,11 +148,15 @@ namespace Bingo
         private void endGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Are you sure you want to end this game?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            
             if (result == DialogResult.Yes)
             {
-                bingoManager.ResetBalls();
                 bingoBoard1.Clear();
                 bingoBoard1.isGameStarted = false;
+
+                bingoManager.ResetBalls();
+                bingoManager.BallsToRemove = new List<int>();
+
                 lastThreeBallsControl1.ClearBalls();
                 nextBallToBeCalledControl1.Clear();
                 sevenSegmentDisplay1.SetNumber(0);
@@ -171,8 +175,12 @@ namespace Bingo
         /// <param name="e">Event arguments.</param>
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-  
-            bingoManager.DisabledRows = bingoBoard1.DisabledRows;
+            List<int> ballsToRemove = bingoBoard1.BallsToRemove;
+            List<string> disabledRows = bingoBoard1.DisabledRows;
+
+            bingoManager.DisabledRows = disabledRows;
+            bingoManager.BallsToRemove = ballsToRemove;
+            bingoManager.ResetBalls();
             
             try
             {
