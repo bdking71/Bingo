@@ -1,0 +1,39 @@
+<Patterns>
+	<Name>Four Pack Any Corner</Name>
+	<Pattern>
+		<Boxes>
+			<Box id="1" />
+			<Box id="2" />
+			<Box id="6" />
+			<Box id="7" />
+		</Boxes>
+	</Pattern>
+	<Pattern>
+		<Boxes>
+			<Box id="4" />
+			<Box id="9" />
+			<Box id="10" />
+			<Box id="5" />
+		</Boxes>
+	</Pattern>
+	<Pattern>
+		<Boxes>
+			<Box id="19" />
+			<Box id="20" />
+			<Box id="25" />
+			<Box id="24" />
+		</Boxes>
+	</Pattern>
+	<Pattern>
+		<Boxes>
+			<Box id="16" />
+			<Box id="21" />
+			<Box id="22" />
+			<Box id="17" />
+		</Boxes>
+	</Pattern>
+	<Pattern>
+		<Boxes>
+		</Boxes>
+	</Pattern>
+</Patterns>

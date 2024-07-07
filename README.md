@@ -69,3 +69,7 @@ By using this software, you acknowledge that you have reviewed the laws applicab
 This software is open source and is licensed under the GNU General Public License version 3. You can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License.
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see https://www.gnu.org/licenses/gpl-3.0.en.html.
+
+##Legal
+
+This app uses the G7 Segment 7 S5 located at the following URL: https://www.dafont.com/g7-segment7-s5.font?l[]=10&l[]=1. Please find the .ttf file in the application directory and double click the font to install. The application will work without this font, and will use a default font if this isn't installed.

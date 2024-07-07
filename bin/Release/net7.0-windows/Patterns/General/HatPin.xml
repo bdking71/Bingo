@@ -1,0 +1,14 @@
+<Patterns>
+	<Name>Hat Pin</Name>
+	<Pattern>
+		<Boxes>
+			<Box id="4" />
+			<Box id="9" />
+			<Box id="5" />
+			<Box id="10" />
+			<Box id="13" />
+			<Box id="17" />
+			<Box id="21" />
+		</Boxes>
+	</Pattern>
+</Patterns>

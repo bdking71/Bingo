@@ -1,0 +1,18 @@
+<Patterns>
+	<Name>Wine Glass</Name>
+	<Pattern>
+		<Boxes>
+			<Box id="24" />
+			<Box id="23" />
+			<Box id="22" />
+			<Box id="13" />
+			<Box id="1" />
+			<Box id="21" />
+			<Box id="7" />
+			<Box id="9" />
+			<Box id="5" />
+			<Box id="18" />
+			<Box id="25" />
+		</Boxes>
+	</Pattern>
+</Patterns>

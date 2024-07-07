@@ -1,0 +1,20 @@
+<Patterns>
+	<Name>Letter M</Name>
+	<Pattern>
+		<Boxes>
+			<Box id="1" />
+			<Box id="6" />
+			<Box id="11" />
+			<Box id="5" />
+			<Box id="21" />
+			<Box id="16" />
+			<Box id="10" />
+			<Box id="15" />
+			<Box id="20" />
+			<Box id="25" />
+			<Box id="7" />
+			<Box id="13" />
+			<Box id="19" />
+		</Boxes>
+	</Pattern>
+</Patterns>
