@@ -53,7 +53,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "PatternSelectionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PatternSelectionForm";
+            this.Text = "Winning Pattern(s)";
             this.ResumeLayout(false);
 
         }
