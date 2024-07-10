@@ -1,0 +1,23 @@
+<Patterns>
+	<Name>Letter R</Name>
+	<Pattern>
+		<Boxes>
+			<Box id="4" />
+			<Box id="3" />
+			<Box id="2" />
+			<Box id="5" />
+			<Box id="10" />
+			<Box id="21" />
+			<Box id="16" />
+			<Box id="11" />
+			<Box id="6" />
+			<Box id="1" />
+			<Box id="15" />
+			<Box id="14" />
+			<Box id="12" />
+			<Box id="19" />
+			<Box id="25" />
+			<Box id="13" />
+		</Boxes>
+	</Pattern>
+</Patterns>

@@ -1,6 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Text.RegularExpressions;
+
+public class GameState
+{
+    public List<int>? RemainingBalls { get; set; }
+    public List<int>? DrawnBalls { get; set; }
+    public int? PeekedBall { get; set; }
+    public string? CurrentDate { get; set; }
+    public string? CurrentTime { get; set; }
+}
 
 public class BingoBallManager
 {
@@ -9,15 +20,21 @@ public class BingoBallManager
     private Random random; // Random number generator for shuffling
     private List<string> disabledRows = new List<string>();
     private List<int> ballsToRemove = new List<int>();
+    private string fileName = "logs/state.txt"; // Name of the file to store the game state
+    private string directory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? Environment.CurrentDirectory;
+    private int? peekedBall = null;
+    private Boolean isRecovered = false; 
+
     public List<string> DisabledRows
     {
-        get { 
-            return new List<string>(disabledRows); 
+        get
+        {
+            return new List<string>(disabledRows);
         }
         set
         {
             disabledRows = new List<string>(value);
-            InitializeBalls(); 
+            InitializeBalls();
         }
     }
 
@@ -79,7 +96,7 @@ public class BingoBallManager
                 {
                     balls.Add(i); // Add number to the list if not in a disabled row
                 }
-              
+
             }
         }
 
@@ -94,7 +111,7 @@ public class BingoBallManager
             drawnBalls.Add(ballToRemove);
         }
 
-            }
+    }
 
     private void ShuffleBalls()
     {
@@ -121,7 +138,7 @@ public class BingoBallManager
     }
 
     public void ResetBalls()
-    {
+    {        
         InitializeBalls(); // Reinitialize the balls
         ShuffleBalls();
     }
@@ -151,12 +168,19 @@ public class BingoBallManager
         return drawnBalls?.Count + 1 ?? 0; // Return 0 if drawnBalls is null
     }
 
-    public int GetBallsLeft() {
+    public int GetBallsLeft()
+    {
         return balls?.Count - 1 ?? 0; // Return 0 if balls.Count is null 
     }
 
     public int PeekNextBall()
     {
+        if (isRecovered == true)
+        {
+            isRecovered = false; 
+            return (int)peekedBall;
+        }
+
         if (balls == null || balls.Count == 0)
         {
             throw new InvalidOperationException("All bingo balls have been drawn.");
@@ -164,8 +188,93 @@ public class BingoBallManager
         else
         {
             if (balls.Count > 1) ShuffleBalls(); // Shuffle the balls if more than one ball is remaining
-            return balls[balls.Count - 1]; // Return the topmost ball without removing it
+            int ball = balls[balls.Count - 1];
+            peekedBall = ball; // Store the peeked ball's value
+            WriteGameStateToFile();
+            return ball;
         }
     }
 
+    // Method to write the current game state to a file
+    private void WriteGameStateToFile()
+    {
+        string filePath = Path.Combine(directory, fileName); // Create the file path
+
+        // Create a new file or overwrite the existing file
+        using (StreamWriter writer = new StreamWriter(filePath))
+        {
+            // Create a JSON string containing the game state and the current date and time
+            var gameData = new
+            {
+                RemainingBalls = balls,
+                DrawnBalls = drawnBalls,
+                PeekedBall = peekedBall,
+                CurrentDate = (DateTime.Now.Date.ToString("d")).ToString(),
+                CurrentTime = (DateTime.Now.TimeOfDay.ToString("hh\\:mm\\:ss")).ToString()
+            };
+
+            string jsonString = System.Text.Json.JsonSerializer.Serialize(gameData);
+
+            writer.WriteLine(jsonString); // Write the JSON string to the file
+        }
+    }
+
+    public void LoadGameStateFromFile()
+    {
+        if (!File.Exists(fileName))
+        {
+            throw new FileNotFoundException("The specified game state file does not exist!");
+        }
+
+        using (var reader = new StreamReader(fileName))
+        {
+            string json = reader.ReadToEnd(); // Read the entire JSON string from the file
+
+            // Deserialize the JSON string to retrieve the game state
+            var gameData = System.Text.Json.JsonSerializer.Deserialize<GameState>(json);
+
+            if (gameData == null)
+            {
+                throw new Exception("Invalid game state file format!");
+            }
+
+            // Reset the values of RemainingBalls, DrawnBalls, and PeekedBall
+            balls = gameData.RemainingBalls;
+            drawnBalls = gameData.DrawnBalls;
+            peekedBall = gameData.PeekedBall;
+            isRecovered = true;
+        }
+    }
+
+    public void RenameSaveFile()
+    {
+        string filePath = Path.Combine(directory, fileName); // Create the file path
+        string json;
+
+        using (var reader = new StreamReader(filePath))
+        {
+            json = reader.ReadToEnd(); // Read the entire JSON string from the file
+        }
+
+        // Deserialize the JSON string to retrieve the game state
+        var gameData = System.Text.Json.JsonSerializer.Deserialize<GameState>(json);
+
+        if (gameData == null)
+        {
+            throw new Exception("Invalid game state file format!");
+        }
+
+        // Format the current date and time according to the BINGO_YYYYMMDD_HHMMSS.log template
+        string formattedDate = gameData.CurrentDate.Replace("-", "").Replace("/", "");
+        string formattedTime = gameData.CurrentTime.Replace(":", "");
+
+        // Create a new file name using the formatted date and time
+        string newFileName = $"BINGO_{formattedDate}_{formattedTime}.log";
+        newFileName = "logs/" + newFileName;
+        // Create the new file path
+        string newFilePath = Path.Combine(directory, newFileName);
+
+        // Rename the save file
+        File.Move(filePath, newFilePath);
+    }
 }

@@ -56,6 +56,9 @@
     <None Update="G7_Segment7_S5.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="logs\PlaceHolder.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="license.pdf">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

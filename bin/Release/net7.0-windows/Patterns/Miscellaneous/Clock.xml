@@ -1,0 +1,21 @@
+<Patterns>
+	<Name>Clock</Name>
+	<Pattern>
+		<Boxes>
+			<Box id="15" />
+			<Box id="3" />
+			<Box id="4" />
+			<Box id="10" />
+			<Box id="2" />
+			<Box id="19" />
+			<Box id="20" />
+			<Box id="24" />
+			<Box id="23" />
+			<Box id="22" />
+			<Box id="16" />
+			<Box id="11" />
+			<Box id="6" />
+			<Box id="13" />
+		</Boxes>
+	</Pattern>
+</Patterns>

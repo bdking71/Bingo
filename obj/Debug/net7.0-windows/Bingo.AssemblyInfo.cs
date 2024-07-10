@@ -11,13 +11,15 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("Bingo")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("N/A")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyCopyrightAttribute("GNU GENERAL PUBLIC LICENSE V.3")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute("A Bingo Game. ")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("2024.7.7.1406")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2024.07.07.1406")]
 [assembly: System.Reflection.AssemblyProductAttribute("Bingo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Bingo")]
-[assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("2024.7.7.1406")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]
 

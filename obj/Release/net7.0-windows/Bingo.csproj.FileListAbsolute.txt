@@ -88,3 +88,4 @@ C:\Users\bdkin\source\repos\Bingo\obj\Release\net7.0-windows\ref\Bingo.dll
 C:\Users\bdkin\source\repos\Bingo\bin\Release\net7.0-windows\license.pdf
 C:\Users\bdkin\source\repos\Bingo\bin\Release\net7.0-windows\README.md
 C:\Users\bdkin\source\repos\Bingo\bin\Release\net7.0-windows\G7_Segment7_S5.ttf
+C:\Users\bdkin\source\repos\Bingo\bin\Release\net7.0-windows\logs\PlaceHolder.txt

@@ -20,7 +20,9 @@ namespace Bingo
         private static BingoPatternParser patternParser = new BingoPatternParser();
         private static List<int[]>? patterns;
         private static Boolean useCaller = false;
-        
+        private static string fileName = "logs/state.txt"; // Name of the file to store the game state
+        private string directory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? Environment.CurrentDirectory;
+
 
         /// <summary>
         /// Initializes a new instance of the Form1 class.
@@ -151,6 +153,8 @@ namespace Bingo
             
             if (result == DialogResult.Yes)
             {
+                bingoManager.RenameSaveFile();
+
                 bingoBoard1.Clear();
                 bingoBoard1.isGameStarted = false;
 
@@ -164,24 +168,20 @@ namespace Bingo
                 btn_getBall.Visible = false;
 
                 newGameToolStripMenuItem.Enabled = true;
+                exitToolStripMenuItem.Enabled = true;
                 endGameToolStripMenuItem.Enabled = false;
             }   
         }
 
-        /// <summary>
-        /// Initializes a new game of Bingo, setting up initial game state and enabling necessary controls.
-        /// </summary>
-        /// <param name="sender">The ToolStripMenuItem that triggered the event.</param>
-        /// <param name="e">Event arguments.</param>
-        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+
+        private void startNewGame() {
             List<int> ballsToRemove = bingoBoard1.BallsToRemove;
             List<string> disabledRows = bingoBoard1.DisabledRows;
 
             bingoManager.DisabledRows = disabledRows;
             bingoManager.BallsToRemove = ballsToRemove;
             bingoManager.ResetBalls();
-            
+
             try
             {
                 int PeekBall = bingoManager.PeekNextBall();
@@ -192,11 +192,64 @@ namespace Bingo
                 btn_getBall.Visible = true;
                 btn_getBall.BringToFront();
                 bingoBoard1.isGameStarted = true;
+                exitToolStripMenuItem.Enabled = false;
                 newGameToolStripMenuItem.Enabled = false;
                 endGameToolStripMenuItem.Enabled = true;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new game of Bingo, setting up initial game state and enabling necessary controls.
+        /// </summary>
+        /// <param name="sender">The ToolStripMenuItem that triggered the event.</param>
+        /// <param name="e">Event arguments.</param>
+        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string filePath = Path.Combine(directory, fileName);
+            if (File.Exists(filePath))
+            {
+                DialogResult result = MessageBox.Show("Do you want to load previous game?", "Previous Game Data found!", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                if (result == DialogResult.Yes)
+                {
+                    bingoManager.LoadGameStateFromFile();
+
+                    try
+                    {
+                        int PeekBall = bingoManager.PeekNextBall();
+                        char PeekballLetter = bingoManager.GetBallLetter(PeekBall);
+                        nextBallToBeCalledControl1.RowLetter = PeekballLetter;
+                        nextBallToBeCalledControl1.Number = PeekBall;
+                        lockGetNextBallButton = false;
+                        btn_getBall.Visible = true;
+                        btn_getBall.BringToFront();
+                        bingoBoard1.isGameStarted = true;
+                        newGameToolStripMenuItem.Enabled = false;
+                        exitToolStripMenuItem.Enabled = false;
+                        endGameToolStripMenuItem.Enabled = true;
+                        List<int> BallsDrawn = bingoManager.GetDrawnBalls();
+                        int NbrOfBallsDrawn = bingoManager.GetDrawnBallsCount();
+
+                        lastThreeBallsControl1.BallsDrawn = BallsDrawn;
+                        bingoBoard1.UpdateBingoBoard(BallsDrawn);
+                        sevenSegmentDisplay1.SetNumber(NbrOfBallsDrawn - 1);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
+                }
+
+                if (result == DialogResult.No) {
+                    startNewGame();
+                }
+            }
+            else 
+            {
+                startNewGame();
             }
         }
 

@@ -1,0 +1,11 @@
+<Patterns>
+	<Name>Corners</Name>
+	<Pattern>
+		<Boxes>
+			<Box id="5" />
+			<Box id="21" />
+			<Box id="1" />
+			<Box id="25" />
+		</Boxes>
+	</Pattern>
+</Patterns>

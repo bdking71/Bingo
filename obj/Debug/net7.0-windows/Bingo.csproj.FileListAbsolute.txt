@@ -1,4 +1,7 @@
 C:\Users\bdkin\source\repos\Bingo\bin\Debug\net7.0-windows\Bingo.exe
+C:\Users\bdkin\source\repos\Bingo\bin\Debug\net7.0-windows\G7_Segment7_S5.ttf
+C:\Users\bdkin\source\repos\Bingo\bin\Debug\net7.0-windows\license.pdf
+C:\Users\bdkin\source\repos\Bingo\bin\Debug\net7.0-windows\logs\PlaceHolder.txt
 C:\Users\bdkin\source\repos\Bingo\bin\Debug\net7.0-windows\Patterns\Alphabet\LetterA.xml
 C:\Users\bdkin\source\repos\Bingo\bin\Debug\net7.0-windows\Patterns\Alphabet\LetterB.xml
 C:\Users\bdkin\source\repos\Bingo\bin\Debug\net7.0-windows\Patterns\Alphabet\LetterC.xml
@@ -59,6 +62,7 @@ C:\Users\bdkin\source\repos\Bingo\bin\Debug\net7.0-windows\Patterns\Special\Insi
 C:\Users\bdkin\source\repos\Bingo\bin\Debug\net7.0-windows\Patterns\Special\LetterL.xml
 C:\Users\bdkin\source\repos\Bingo\bin\Debug\net7.0-windows\Patterns\Special\LetterT.xml
 C:\Users\bdkin\source\repos\Bingo\bin\Debug\net7.0-windows\Patterns\Special\Outside.xml
+C:\Users\bdkin\source\repos\Bingo\bin\Debug\net7.0-windows\README.md
 C:\Users\bdkin\source\repos\Bingo\bin\Debug\net7.0-windows\Bingo.deps.json
 C:\Users\bdkin\source\repos\Bingo\bin\Debug\net7.0-windows\Bingo.runtimeconfig.json
 C:\Users\bdkin\source\repos\Bingo\bin\Debug\net7.0-windows\Bingo.dll
@@ -85,4 +89,3 @@ C:\Users\bdkin\source\repos\Bingo\obj\Debug\net7.0-windows\refint\Bingo.dll
 C:\Users\bdkin\source\repos\Bingo\obj\Debug\net7.0-windows\Bingo.pdb
 C:\Users\bdkin\source\repos\Bingo\obj\Debug\net7.0-windows\Bingo.genruntimeconfig.cache
 C:\Users\bdkin\source\repos\Bingo\obj\Debug\net7.0-windows\ref\Bingo.dll
-C:\Users\bdkin\source\repos\Bingo\bin\Debug\net7.0-windows\SevenSegmentDisplay.cs
