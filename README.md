@@ -47,12 +47,15 @@ Special Winning Patterns
 - The "Winning Patterns" control supports multiple patterns.
 - A built-in timer with 10, 15, 25, and 35-second intervals.
 - A built-in "Caller" that can audibly announce the balls.
+- The application keeps a file that represents the state of the game in case of a crash, and if the file exists when starting a new game, it will prompt you to load the last incomplete game.
+- The state file become a log of the game after the game has been closed.
 
 ## Future Enhancements
 
 ---
 
-- Logging: I plan to add functionality where the system logs the balls that have been called in the order they were called. This feature will be useful in case of a system failure or if someone questions the integrity of the game.
+- I plan to add a calculator into the right click menu which can help divide up the winnings. For example, if you're playing candy bar bingo, I envision a place to add the number of prize candy bars and the number of bingos, and the calculator would split the prize amount the winners.
+- I would like to find a database of pre-printed cards that Amazon sells, and add in a feature to show the winning card on the screen.
 
 ## Legal Disclaimer
 
