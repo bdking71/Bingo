@@ -6,6 +6,17 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <StartupObject>Bingo.Program</StartupObject>
+    <Version>2024.07.07.1406</Version>
+    <Company>N/A</Company>
+    <Authors>Bryan King</Authors>
+    <Product>Bingo</Product>
+    <Description>A Bingo Game. </Description>
+    <Copyright>GNU GENERAL PUBLIC LICENSE V.3</Copyright>
+    <PackageProjectUrl>http://bdking71.wordpress.com</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseFile>license.pdf</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,8 +35,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Update="SevenSegmentDisplay.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
 
@@ -37,6 +53,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="G7_Segment7_S5.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="license.pdf">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Patterns\Alphabet\LetterA.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -257,6 +281,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Patterns\UpperandLowerV.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
