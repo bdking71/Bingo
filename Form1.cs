@@ -2,27 +2,29 @@ using CustomControls;
 using System;
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.Win32;
+using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Bingo
 {
     
     public partial class Form1 : Form
     {
-
         private static BingoBallManager bingoManager = new BingoBallManager();
         private static NextBallToBeCalledControl nextBallControl = new NextBallToBeCalledControl();
         private static Boolean lockGetNextBallButton = true;
         private static string patternsDirectory = "Patterns"; 
         List<Pattern> loadedPatterns = new List<Pattern>();
         private List<string>? selectedPatterns;
-        private static Int32 boxSize = 0;
         private static BingoAnnouncer announcer = new BingoAnnouncer();
         private static BingoPatternParser patternParser = new BingoPatternParser();
         private static List<int[]>? patterns;
         private static Boolean useCaller = false;
         private static string fileName = "logs/state.txt"; // Name of the file to store the game state
         private string directory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ?? Environment.CurrentDirectory;
-
+   
 
         /// <summary>
         /// Initializes a new instance of the Form1 class.
@@ -30,6 +32,7 @@ namespace Bingo
         public Form1()
         {
             InitializeComponent();
+            CheckLicense();
         }
 
         /// <summary>
@@ -40,23 +43,22 @@ namespace Bingo
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Visible = false;
+          
+            this.FormBorderStyle = FormBorderStyle.None;
+            btn_getBall.Visible = false;
+            progressBar1.Visible = false;
+           
+            CheckScreenResolution(1366, 768);
 
-            boxSize = (int)Math.Floor((double)this.ClientSize.Width / 16.1);
+            bingoBoard1.isGameStarted = false;
+            btn_getBall.Left = (PanelCenterDocked.Width / 2) - (btn_getBall.Width / 2);
+            progressBar1.Left = (PanelCenterDocked.Width / 2) - (progressBar1.Width / 2);
 
-            int startX = (int)(this.ClientSize.Width - (16 * boxSize)) / 2;
-            int midX = (int)(this.ClientSize.Width / 2);
 
-         
-            bingoBoard1.BoxSize = boxSize;
-            bingoBoard1.Height = boxSize * 10;
-            bingoBoard1.RowHeaderFontSize = 36f;
-            bingoBoard1.NumberFontSize = 38f;
-            bingoBoard1.isGameStarted = false; 
+            int verticalCenter = (PanelCenterDocked.Height / 2) - ((btn_getBall.Top + btn_getBall.Bottom) / 2);
+            btn_getBall.Top = verticalCenter;
+            progressBar1.Top = verticalCenter + btn_getBall.Height + 5;
 
-            lastThreeBallsControl1.FontSize = 28;
-
-            sevenSegmentDisplay1.FontSize = 42;
-            nextBallToBeCalledControl1.BallFont = new Font("Verdana", 92, FontStyle.Bold);
             sevenSegmentDisplay1.DisplayColor = Color.Red;
             sevenSegmentDisplay1.Reset();
 
@@ -71,8 +73,17 @@ namespace Bingo
                     loadedPatterns.Add(pattern);
                 }
             }
-
             this.Visible = true;
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            btn_getBall.Left = (PanelCenterDocked.Width / 2) - (btn_getBall.Width / 2);
+            progressBar1.Left = (PanelCenterDocked.Width / 2) - (progressBar1.Width / 2);
+
+            int verticalCenter = (PanelCenterDocked.Height / 2) - ((btn_getBall.Top + btn_getBall.Bottom) / 2);
+            btn_getBall.Top = verticalCenter;
+            progressBar1.Top = verticalCenter + btn_getBall.Height + 5;
         }
 
         /// <summary>
@@ -116,19 +127,6 @@ namespace Bingo
         }
 
         /// <summary>
-        /// Handles resizing of Form1 by adjusting properties of the bingo board control.
-        /// </summary>
-        /// <param name="sender">The Form1 instance that triggered the event.</param>
-        /// <param name="e">Event arguments.</param>
-        private void Form1_Resize(object sender, EventArgs e)
-        {
-            bingoBoard1.BoxSize = boxSize;
-            bingoBoard1.Height = boxSize;
-            bingoBoard1.RowHeaderFontSize = 25f;
-            bingoBoard1.NumberFontSize = 25f;
-        }
-
-        /// <summary>
         /// Exits the application after confirming with the user.
         /// </summary>
         /// <param name="sender">The ToolStripMenuItem that triggered the event.</param>
@@ -143,10 +141,16 @@ namespace Bingo
         }
 
         /// <summary>
-        /// Ends the current game of Bingo, resetting game state and confirming with the user before proceeding.
+        /// Handles the click event for ending the current Bingo game.
         /// </summary>
-        /// <param name="sender">The ToolStripMenuItem that triggered the event.</param>
-        /// <param name="e">Event arguments.</param>
+        /// <param name="sender">The object that triggered the event.</param>
+        /// <param name="e">The event arguments.</param>
+        /// <remarks>
+        /// Displays a confirmation dialog before ending the game. If confirmed,
+        /// resets game-related controls and enables/disables menu items accordingly.
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void endGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Are you sure you want to end this game?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -173,7 +177,36 @@ namespace Bingo
             }   
         }
 
+        /// <summary>
+        /// Checks if the screen resolution meets the minimum required dimensions.
+        /// </summary>
+        /// <param name="width">The minimum required width of the screen resolution.</param>
+        /// <param name="height">The minimum required height of the screen resolution.</param>
+        /// <remarks>
+        /// If the current screen resolution is less than the specified dimensions, 
+        /// the method displays an error message and exits the application.
+        /// </remarks>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        private void CheckScreenResolution(int width, int height)
+        {
+            if (Screen.PrimaryScreen == null || 
+                Screen.PrimaryScreen.Bounds.Width < width || 
+                Screen.PrimaryScreen.Bounds.Height < height)
+            {
+                MessageBox.Show($"This app requires a screen resolution of {width}x{height} or larger. Please change your screen resolution and restart the app.", "Screen Resolution Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
+        }
 
+        /// <summary>
+        /// Starts a new game of Bingo, initializing game parameters and UI elements.
+        /// </summary>
+        /// <remarks>
+        /// This method sets up the game by configuring disabled rows and balls to remove,
+        /// resets the Bingo manager state, and prepares the UI to display the next ball to be called.
+        /// It also manages UI visibility and control states for starting a new game session.
+        /// </remarks>
         private void startNewGame() {
             List<int> ballsToRemove = bingoBoard1.BallsToRemove;
             List<string> disabledRows = bingoBoard1.DisabledRows;
@@ -315,9 +348,6 @@ namespace Bingo
             {
                 progressBar1.Value += 1;
             }
-            else {
-                btn_getBall.Visible = true;
-            }
         }
 
         /// <summary>
@@ -342,8 +372,7 @@ namespace Bingo
         /// <param name="sender">The object that raised the event.</param>
         /// <param name="e">The EventArgs containing event data.</param>
         private void secondsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //25 seconds
+        {            
             progressBar1.Visible = true;
             progressBar1.Value = 0;
             progressBar1.Maximum = 25;
@@ -375,7 +404,7 @@ namespace Bingo
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             selectedPatterns?.Clear();
-            patterns = patternParser.ParseXmlFiles(selectedPatterns);
+            if (selectedPatterns != null)   patterns = patternParser.ParseXmlFiles(selectedPatterns);
             winningPatternBoard1.Patterns = patterns;
         }
 
@@ -396,6 +425,41 @@ namespace Bingo
                 selectedPatterns = patternSelectionForm.SelectedPatterns;
                 patterns = patternParser.ParseXmlFiles(selectedPatterns);
                 winningPatternBoard1.Patterns = patterns;
+            }
+        }
+
+        /// <summary>
+        /// Checks whether the license for the Bingo application has been accepted.
+        /// If not accepted, displays a license dialog, updates the registry upon acceptance,
+        /// and exits the application if the license dialog is canceled.
+        /// </summary>
+        /// <remarks>
+        /// This function accesses the registry to determine if the license has been accepted
+        /// for the current user under 'HKEY_CURRENT_USER\\Software\\Bingo'. If no license
+        /// acceptance is found or it is not 'true', it displays a license dialog using the
+        /// `License` form. If the user accepts the license, it updates the registry to mark
+        /// the license as accepted. If the user cancels the dialog, the application exits.
+        /// </remarks>
+        /// <seealso cref="License"/>
+        private void CheckLicense()
+        {
+            const string registryKey = "HKEY_CURRENT_USER\\Software\\Bingo";
+            const string licenseAcceptedKey = "LicenseAccepted";
+            object? licenseAccepted = Registry.GetValue(registryKey, licenseAcceptedKey, null);
+
+            if (licenseAccepted == null || licenseAccepted.ToString() != "true")
+            {
+                using (License license = new License())
+                {
+                    if (license.ShowDialog() == DialogResult.OK)
+                    {
+                        Registry.SetValue(registryKey, licenseAcceptedKey, "true");
+                    }
+                    else
+                    {
+                        Application.Exit();
+                    }
+                }
             }
         }
 

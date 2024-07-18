@@ -44,7 +44,8 @@
             this.patternTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.patternTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.patternTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.patternTableLayoutPanel.Location = new System.Drawing.Point(3, 3);
+            this.patternTableLayoutPanel.Location = new System.Drawing.Point(3, 2);
+            this.patternTableLayoutPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.patternTableLayoutPanel.Name = "patternTableLayoutPanel";
             this.patternTableLayoutPanel.RowCount = 5;
             this.patternTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -52,16 +53,17 @@
             this.patternTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.patternTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.patternTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.patternTableLayoutPanel.Size = new System.Drawing.Size(385, 393);
+            this.patternTableLayoutPanel.Size = new System.Drawing.Size(358, 319);
             this.patternTableLayoutPanel.TabIndex = 0;
             // 
             // WinningPatternBoard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.patternTableLayoutPanel);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "WinningPatternBoard";
-            this.Size = new System.Drawing.Size(391, 399);
+            this.Size = new System.Drawing.Size(363, 323);
             this.ResumeLayout(false);
 
         }

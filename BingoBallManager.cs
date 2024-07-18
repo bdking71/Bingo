@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 
+
 public class GameState
 {
     public List<int>? RemainingBalls { get; set; }

@@ -19,13 +19,14 @@ namespace Bingo
 
         private void LoadCustomFont()
         {
+            float fontSize = this.Height * 0.30f;
             try
-            {
-                // Load the custom font from the file system
-                displayFont = new Font("G7 Segment7 S5", 24, FontStyle.Bold); // Default font size
+            {                
+                displayFont = new Font("G7 Segment7 S5", fontSize, FontStyle.Bold); // Default font size
             }
             catch (Exception ex)
             {
+                displayFont = new Font("Verdana", fontSize, FontStyle.Bold); // Default font size
                 MessageBox.Show($"Failed to load custom font: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -34,12 +35,6 @@ namespace Bingo
         {
             get => displayColor;
             set { displayColor = value; Invalidate(); }
-        }
-
-        public float FontSize
-        {
-            get => displayFont.Size;
-            set { displayFont.Dispose(); displayFont = new Font("G7 Segment7 S5", value); Invalidate(); }
         }
 
         public void Reset() => SetNumber(0);

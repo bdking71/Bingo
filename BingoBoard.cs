@@ -11,103 +11,11 @@ namespace Bingo
     {
         private Label? lastCalledNumberLabel; // Nullable label
         private Color SuperDarkGray = Color.FromArgb(50, 50, 50);
-        private float rowHeaderFontSize = 12f;
         private Boolean IsGameStarted = false;
         private List<string> disabledRows = new List<string>();
         private List<int> ballsToRemove = new List<int>();
-
         private System.Windows.Forms.Timer blinkTimer = new System.Windows.Forms.Timer();
-        private float numberFontSize = 12f;
-        private int boxSize = 70;
-
-        /// <summary>
-        /// Gets or sets the font size of row headers on the Bingo board.
-        /// </summary>
-        /// <remarks>
-        /// This property controls the font size used for displaying row headers ('B', 'I', 'N', 'G', 'O')
-        /// on the Bingo board. Setting this property updates the font size of the row headers and triggers
-        /// a refresh of the board.
-        /// </remarks>
-        /// <example>
-        /// <code>
-        /// // Assuming you have a Bingo board instance:
-        /// // BingoBoard bingoBoard = new BingoBoard();
-        ///
-        /// // Get the current row header font size:
-        /// float currentRowHeaderFontSize = bingoBoard.RowHeaderFontSize;
-        ///
-        /// // Set a new row header font size:
-        /// bingoBoard.RowHeaderFontSize = 14.0f;
-        /// </code>
-        /// </example>
-        public float RowHeaderFontSize
-        {
-            get { return rowHeaderFontSize; }
-            set
-            {
-                rowHeaderFontSize = value;
-                RefreshBingoBoard();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the font size of numbers on the Bingo board.
-        /// </summary>
-        /// <remarks>
-        /// This property controls the font size used for displaying numbers in each box on the Bingo board.
-        /// Setting this property updates the font size of the numbers and triggers a refresh of the board.
-        /// </remarks>
-        /// <example>
-        /// <code>
-        /// // Assuming you have a Bingo board instance:
-        /// // BingoBoard bingoBoard = new BingoBoard();
-        ///
-        /// // Get the current number font size:
-        /// float currentNumberFontSize = bingoBoard.NumberFontSize;
-        ///
-        /// // Set a new number font size:
-        /// bingoBoard.NumberFontSize = 12.5f;
-        /// </code>
-        /// </example>
-        public float NumberFontSize
-        {
-            get { return numberFontSize; }
-            set
-            {
-                numberFontSize = value;
-                RefreshBingoBoard();
-            }
-        }
         
-        /// <summary>
-        /// Gets or sets the size of each box on the Bingo board.
-        /// </summary>
-        /// <remarks>
-        /// This property controls the size of each box (cell) on the Bingo board grid.
-        /// Setting this property updates the size of the boxes and triggers a refresh of the board.
-        /// </remarks>
-        /// <example>
-        /// <code>
-        /// // Assuming you have a Bingo board instance:
-        /// // BingoBoard bingoBoard = new BingoBoard();
-        ///
-        /// // Get the current box size:
-        /// int currentBoxSize = bingoBoard.BoxSize;
-        ///
-        /// // Set a new box size:
-        /// bingoBoard.BoxSize = 50;
-        /// </code>
-        /// </example>
-        public int BoxSize
-        {
-            get { return boxSize; }
-            set
-            {
-                boxSize = value;
-                RefreshBingoBoard();
-            }
-        }
-
         /// <summary>
         /// Gets or sets a value indicating whether the game has started.
         /// </summary>
@@ -289,6 +197,12 @@ namespace Bingo
         /// </example
         private void CreateBingoBoard()
         {
+
+            int boxWidth = this.Width / 16; 
+            int boxHeight = this.Height / 5;
+            float headerFontSize = boxHeight * 0.45f;
+            float fontSize = boxHeight * 0.30f; 
+
             // Clear existing controls
             this.Controls.Clear();
 
@@ -297,7 +211,7 @@ namespace Bingo
             int numCols = 15;
 
             // Calculate the total width of the boxes
-            int totalWidth = (numCols + 1) * boxSize;
+            int totalWidth = (numCols + 1) * boxWidth;
 
             // Calculate the starting position to center the boxes horizontally
             int startX = (this.ClientSize.Width - totalWidth) / 2;
@@ -315,7 +229,7 @@ namespace Bingo
             for (int row = 0; row < numRows; row++)
             {
                 // Calculate the row position
-                int yPos = row * boxSize;
+                int yPos = row * boxHeight;
 
                 // Create a label to represent the letter for the row
                 Label rowHeaderLabel = new Label();
@@ -326,9 +240,10 @@ namespace Bingo
                 rowHeaderLabel.BackColor = Color.LightGray; // Set background color to light gray
                 rowHeaderLabel.TextAlign = ContentAlignment.MiddleCenter;
                 rowHeaderLabel.Location = new Point(rowHeaderStartX, yPos); // Set x position for row header
-                rowHeaderLabel.Size = new Size(boxSize, boxSize);
+                rowHeaderLabel.Size = new Size(boxWidth, boxHeight);
                 rowHeaderLabel.BorderStyle = BorderStyle.FixedSingle; // Add border
-                rowHeaderLabel.Font = new Font(rowHeaderLabel.Font.FontFamily, rowHeaderFontSize, FontStyle.Bold); // Set font size
+
+                rowHeaderLabel.Font = new Font(rowHeaderLabel.Font.FontFamily, headerFontSize, FontStyle.Bold); // Set font size
                 rowHeaderLabel.Click += RowHeaderLabel_Click; // Subscribe to the Click event
                 rowHeaderLabel.Tag = rowHeaders[row];
                 this.Controls.Add(rowHeaderLabel);
@@ -337,7 +252,7 @@ namespace Bingo
                 for (int col = 0; col < numCols; col++)
                 {
                     // Calculate the column position
-                    int xPos = numberStartX + (col + 1) * boxSize; // Adjusted to leave space for row header
+                    int xPos = numberStartX + (col + 1) * boxWidth; // Adjusted to leave space for row header
 
                     // Calculate the number
                     int number = row * numCols + col + 1;
@@ -351,10 +266,10 @@ namespace Bingo
                         boxLabel.BorderStyle = BorderStyle.FixedSingle;
                         boxLabel.TextAlign = ContentAlignment.MiddleCenter;
                         boxLabel.Location = new Point(xPos, yPos); // Set y position for number
-                        boxLabel.Size = new Size(boxSize, boxSize);
+                        boxLabel.Size = new Size(boxWidth, boxHeight);
                         boxLabel.ForeColor = SuperDarkGray; // Set text color to dark gray
                         boxLabel.BackColor = Color.FromArgb(10, 10, 10);  
-                        boxLabel.Font = new Font(boxLabel.Font.FontFamily, numberFontSize); // Set font size                      
+                        boxLabel.Font = new Font(boxLabel.Font.FontFamily, fontSize, FontStyle.Regular); // Set font size                      
                         boxLabel.Click += boxLabel_Click;
                         boxLabel.Tag = rowHeaders[row];
                         this.Controls.Add(boxLabel);

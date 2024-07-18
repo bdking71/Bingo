@@ -76,7 +76,7 @@ namespace Bingo
                     Panel panel = new Panel();
                     panel.Dock = DockStyle.Fill;
                     panel.BorderStyle = BorderStyle.FixedSingle;
-                    panel.Margin = new Padding(1); // Set margin to reduce spacing between boxes
+                    panel.Margin = new Padding(0); // Set margin to reduce spacing between boxes
                     patternTableLayoutPanel.Controls.Add(panel, col, row);
                 }
             }

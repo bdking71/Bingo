@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace Bingo
 {
@@ -8,7 +9,7 @@ namespace Bingo
     {
         private char rowLetter;
         private int number;
-        private Font ballFont = new Font("Verdana", 16, FontStyle.Bold); // Default font
+        private Font ballFont = new Font("Verdana", 16, FontStyle.Bold); 
 
         /// <summary>
         /// Gets or sets the row letter associated with the ball.
@@ -53,27 +54,6 @@ namespace Bingo
         }
 
         /// <summary>
-        /// Gets or sets the font used for displaying ball information.
-        /// </summary>
-        /// <value>The font used for displaying ball information.</value>
-        /// <remarks>
-        /// Setting this property updates the font used for displaying ball information
-        /// and invalidates the control to trigger a repaint with the new font.
-        /// </remarks>
-        /// <example>
-        /// Example usage:
-        /// <code>
-        /// // Set the font for displaying ball information
-        /// control.BallFont = new Font("Arial", 12, FontStyle.Bold);
-        /// </code>
-        /// </example>
-        public Font BallFont
-        {
-            get { return ballFont; }
-            set { ballFont = value; Invalidate(); }
-        }
-
-        /// <summary>
         /// Initializes a new instance of the NextBallToBeCalledControl class.
         /// </summary>
         /// <remarks>
@@ -90,6 +70,8 @@ namespace Bingo
         public NextBallToBeCalledControl()
         {
             InitializeComponent();
+            float fontSize = this.Height * 0.65f;
+            ballFont = new Font("Verdana", fontSize, FontStyle.Bold);
             SetStyle(ControlStyles.ResizeRedraw, true);
             this.BackColor = Color.Transparent;
         }

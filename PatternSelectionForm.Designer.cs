@@ -43,7 +43,7 @@
             // 
             // PatternSelectionForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(776, 540);
             this.ControlBox = false;
@@ -54,6 +54,8 @@
             this.Name = "PatternSelectionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Winning Pattern(s)";
+            this.TopMost = true;
+            this.Load += new System.EventHandler(this.PatternSelectionForm_Load);
             this.ResumeLayout(false);
 
         }

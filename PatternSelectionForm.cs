@@ -61,6 +61,7 @@ namespace Bingo
 
                 // Create a FlowLayoutPanel
                 FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel();
+                
                 flowLayoutPanel.Dock = DockStyle.Fill;
 
                 // Create checkboxes for files in the pattern
@@ -70,7 +71,7 @@ namespace Bingo
                     checkBox.Text = System.IO.Path.GetFileNameWithoutExtension(file);
                     checkBox.Tag = file;
                     checkBox.Width = 250;
-                    checkBox.Height = 30;
+                    checkBox.Height = 25;
 
                     // Check if the current file was previously selected
                     if (previouslySelectedPatterns != null && previouslySelectedPatterns.Contains(file))
@@ -136,6 +137,11 @@ namespace Bingo
 
             // Close the form
             this.DialogResult = DialogResult.OK;
+        }
+
+        private void PatternSelectionForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

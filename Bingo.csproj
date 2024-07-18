@@ -17,6 +17,8 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseFile>license.pdf</PackageLicenseFile>
+    <AssemblyVersion>2024.07.14.1029</AssemblyVersion>
+    <FileVersion>2024.07.14.1029</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -54,6 +56,9 @@
 
   <ItemGroup>
     <None Update="G7_Segment7_S5.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="license.rtf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="logs\PlaceHolder.txt">

@@ -15,11 +15,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("GNU GENERAL PUBLIC LICENSE V.3")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("A Bingo Game. ")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("2024.7.7.1406")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("2024.07.14.1029")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("2024.07.07.1406")]
 [assembly: System.Reflection.AssemblyProductAttribute("Bingo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Bingo")]
-[assembly: System.Reflection.AssemblyVersionAttribute("2024.7.7.1406")]
+[assembly: System.Reflection.AssemblyVersionAttribute("2024.07.14.1029")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]
 

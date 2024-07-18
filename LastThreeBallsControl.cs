@@ -9,7 +9,6 @@ namespace Bingo
     public partial class LastThreeBallsControl : UserControl
     {
         private List<int> ballsDrawn = new List<int>();
-        private int fontSize = 12;
         private List<Panel> ballPanels = new List<Panel>();
 
         /// <summary>
@@ -25,18 +24,7 @@ namespace Bingo
             set { ballsDrawn = value; UpdateDisplay(); }
         }
 
-        /// <summary>
-        /// Gets or sets the list of drawn balls.
-        /// </summary>
-        /// <remarks>
-        /// This property manages the list of integers representing drawn balls. Setting this property triggers an update to the display.
-        /// </remarks>
-        /// <value>The list of drawn balls.</value>
-        public int FontSize
-        {
-            get { return fontSize; }
-            set { fontSize = value; UpdateDisplay(); }
-        }
+        
 
         /// <summary>
         /// Initializes a new instance of the LastThreeBallsControl class.
@@ -92,6 +80,8 @@ namespace Bingo
         /// </example>
         private void DisplayLastThreeBalls()
         {
+            float fontSize = this.Height * 0.35f;
+            
             // Display the last three balls in the panels
             int displayCount = Math.Min(ballsDrawn.Count, 3);
             for (int i = 0; i < displayCount; i++)

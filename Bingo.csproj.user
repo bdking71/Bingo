@@ -10,6 +10,9 @@
     <Compile Update="LastThreeBallsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="License.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="NextBallToBeCalledControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
