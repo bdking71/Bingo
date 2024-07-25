@@ -1,4 +1,6 @@
-﻿namespace Bingo
+﻿using Bingo.userControls;
+
+namespace Bingo
 {
     partial class Form1
     {
@@ -33,7 +35,7 @@
             this.btn_getBall = new System.Windows.Forms.Button();
             this.bingoBoard1 = new Bingo.BingoBoard();
             this.nextBallToBeCalledControl1 = new Bingo.NextBallToBeCalledControl();
-            this.sevenSegmentDisplay1 = new Bingo.SevenSegmentDisplay();
+            this.sevenSegmentDisplay1 = new Bingo.userControls.SevenSegmentDisplay();
             this.winningPatternBoard1 = new Bingo.WinningPatternBoard();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();

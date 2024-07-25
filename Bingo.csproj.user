@@ -1,28 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Compile Update="BingoBoard.cs">
+    <Compile Update="userControls\BingoBoard.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="LastThreeBallsControl.cs">
+    <Compile Update="userControls\LastThreeBallsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="License.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="NextBallToBeCalledControl.cs">
+    <Compile Update="userControls\NextBallToBeCalledControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="PatternSelectionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="SevenSegmentDisplay.cs">
+    <Compile Update="userControls\SevenSegmentDisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="WinningPatternBoard.cs">
+    <Compile Update="userControls\WinningPatternBoard.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

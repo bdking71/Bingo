@@ -76,3 +76,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 ##Legal
 
 This app uses the G7 Segment 7 S5 located at the following URL: https://www.dafont.com/g7-segment7-s5.font?l[]=10&l[]=1. Please find the .ttf file in the application directory and double click the font to install. The application will work without this font, and will use a default font if this isn't installed.
+
+## How to Build
+
+This application was developed using [Visual Studio 2022 Community Edition](https://visualstudio.microsoft.com/vs/community/). Upon opening the application for the first time, it is essential to click "Build" to compile the app and all associated user controls. This step must be completed before any code modifications to eliminate any user control errors that Visual Studio may display.

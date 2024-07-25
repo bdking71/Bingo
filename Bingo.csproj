@@ -42,7 +42,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Update="SevenSegmentDisplay.cs">
+    <Compile Update="userControls\SevenSegmentDisplay.cs">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>

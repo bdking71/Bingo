@@ -76,7 +76,6 @@ C:\Users\bdkin\source\repos\Bingo\obj\Debug\net7.0-windows\Bingo.LastThreeBallsC
 C:\Users\bdkin\source\repos\Bingo\obj\Debug\net7.0-windows\Bingo.NextBallToBeCalledControl.resources
 C:\Users\bdkin\source\repos\Bingo\obj\Debug\net7.0-windows\Bingo.PatternSelectionForm.resources
 C:\Users\bdkin\source\repos\Bingo\obj\Debug\net7.0-windows\Bingo.Properties.Resources.resources
-C:\Users\bdkin\source\repos\Bingo\obj\Debug\net7.0-windows\Bingo.SevenSegmentDisplay.resources
 C:\Users\bdkin\source\repos\Bingo\obj\Debug\net7.0-windows\Bingo.WinningPatternBoard.resources
 C:\Users\bdkin\source\repos\Bingo\obj\Debug\net7.0-windows\Bingo.csproj.GenerateResource.cache
 C:\Users\bdkin\source\repos\Bingo\obj\Debug\net7.0-windows\Bingo.GeneratedMSBuildEditorConfig.editorconfig
@@ -91,3 +90,4 @@ C:\Users\bdkin\source\repos\Bingo\obj\Debug\net7.0-windows\Bingo.genruntimeconfi
 C:\Users\bdkin\source\repos\Bingo\obj\Debug\net7.0-windows\ref\Bingo.dll
 C:\Users\bdkin\source\repos\Bingo\obj\Debug\net7.0-windows\Bingo.License.resources
 C:\Users\bdkin\source\repos\Bingo\bin\Debug\net7.0-windows\license.rtf
+C:\Users\bdkin\source\repos\Bingo\obj\Debug\net7.0-windows\Bingo.userControls.SevenSegmentDisplay.resources
